@@ -5,7 +5,7 @@ angular.module('OWMApp',['ngRoute']).
 			templateUrl : './home.html',
 			controller : 'HomeCtrl'
 		}).
-		when('/city',{
+		when('/cities/:city',{
 			templateUrl : './city.html',
 			controller : 'CityCtrl'
 		});
@@ -13,6 +13,6 @@ angular.module('OWMApp',['ngRoute']).
 	controller('HomeCtrl',function($scope){
 
 	}).
-	controller('CityCtrl',function($scope){
-		
+	controller('CityCtrl',function($scope,$routeParams){
+		$scope.city = $routeParams.city;
 	});
