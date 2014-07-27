@@ -6,7 +6,7 @@ myApp.config(function($stateProvider,$urlRouterProvider){
 	$stateProvider.
 	
 	state('state1',{
-		url : '/state',
+		url : '/state1',
 		templateUrl : 'partials/state1.html'
 	}).
 
@@ -19,7 +19,7 @@ myApp.config(function($stateProvider,$urlRouterProvider){
 	}).
 
 	state('state2',{
-		url : '/state',
+		url : '/state2',
 		templateUrl : 'partials/state2.html'
 	}).
 
@@ -27,7 +27,7 @@ myApp.config(function($stateProvider,$urlRouterProvider){
 		url : '/list',
 		templateUrl : 'partials/state2.list.html',
 		controller : function($scope){
-			$scope.items = ['A','Set','Of','Things'];
+			$scope.things = ['A','Set','Of','Things'];
 		}
 	});
 
