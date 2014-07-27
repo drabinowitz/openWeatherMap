@@ -1,41 +1,34 @@
-angular.module('OWMApp',['ngRoute']).
-	value('owmCities',
-		['New York','Dallas','Chicago']).
-	config(function($routeProvider){
-		$routeProvider.
-		when('/', {
-			templateUrl : './home.html',
-			controller : 'HomeCtrl'
-		}).
-		when('/cities/:city',{
-			templateUrl : './city.html',
-			controller : 'CityCtrl',
-			resolve : {
-				city : function(owmCities, $route, $location){
-					var city = $route.current.params.city;
-					if(owmCities.indexOf(city) == -1) {
-						$location.path('/error');
-						return;
-					}
-					return city;
-				}
-			}
-		}).
-		when('/error',{
-			template : '<p>Error Page Not Found</p>'
-		}).
-		otherwise({
-			redirectTo : '/error'
-		});
-	}).
-	run(function($rootScope,$location){
-		$rootScope.$on('$routeChangeError',function(){
-			$location.path('/error');
-		})
-	}).
-	controller('HomeCtrl',function($scope){
+var myApp = angular.module('OWMApp',['ui.router']);
+myApp.config(function($stateProvider,$urlRouterProvider){
+	
+	$urlRouterProvider.otherwise("/state1");
 
+	$stateProvider.
+	
+	state('state1',{
+		url : '/state',
+		templateUrl : 'partials/state1.html'
 	}).
-	controller('CityCtrl',function($scope,city){
-		$scope.city = city;
+
+	state('state1.list',{
+		url : '/list',
+		templateUrl : 'partials/state1.list.html',
+		controller : function($scope){
+			$scope.items = ['A','List','Of','Items'];
+		}
+	}).
+
+	state('state2',{
+		url : '/state',
+		templateUrl : 'partials/state2.html'
+	}).
+
+	state('state2.list',{
+		url : '/list',
+		templateUrl : 'partials/state2.list.html',
+		controller : function($scope){
+			$scope.items = ['A','Set','Of','Things'];
+		}
 	});
+
+});

@@ -6,12 +6,18 @@
 </head>
 <body>
 
-	<a href="#/cities/New%20York">New York</a>
-	<a href="#/cities/Dallas">Dallas</a>
-	<a href="#/cities/Chicago">Chicago</a>
 	<div ng-view></div>
-	<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
-	<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+
+	<a ui-sref="state1">State 1</a>
+	<a ui-sref="state2">State 2</a>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-animate.min.js"></script>
+
+	<script type="text/javascript" src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script>
+
 	<script type="text/javascript" src="./owm-app.js"></script>
+
 </body>
 </html>
