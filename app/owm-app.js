@@ -1,31 +1,48 @@
-angular.module('OWMApp',['ngRoute']).
-	value('owmCities',
-		['New York','Dallas','Chicago']).
-	config(function($routeProvider){
-		$routeProvider.
-		when('/', {
+angular.module('OWMApp',['ui.router']).
+	value('cities',
+		[{name : 'New York'},{name : 'Dallas'},{name : 'Chicago'}]).
+	config(function($stateProvider,$urlRouterProvider){
+
+		$urlRouterProvider.otherwise('/home');
+
+		$stateProvider.
+		state('home', {
+			url : '/home',
 			templateUrl : './home.html',
 			controller : 'HomeCtrl'
 		}).
-		when('/cities/:city',{
+		state('cities',{
+			abstract: true,
+			url: '/cities',
+			templateUrl : './cities.html'
+
+		}).
+		state('cities.city',{
+			url: '/:cityName',
 			templateUrl : './city.html',
 			controller : 'CityCtrl',
 			resolve : {
-				city : function(owmCities, $route, $location){
-					var city = $route.current.params.city;
-					if(owmCities.indexOf(city) == -1) {
+				city : function(cities, $stateParams, $location){
+					var inputCity = $stateParams.cityName;
+					var checker = false;
+					angular.forEach(cities, function(city,key){
+						if (city.name == inputCity){
+							checker = true;
+							return;
+						}
+					});
+					if (checker){
+						return inputCity;
+					}else{
 						$location.path('/error');
 						return;
 					}
-					return city;
 				}
 			}
 		}).
-		when('/error',{
+		state('error',{
+			url : '/error',
 			template : '<p>Error Page Not Found</p>'
-		}).
-		otherwise({
-			redirectTo : '/error'
 		});
 	}).
 	run(function($rootScope,$location){
@@ -33,8 +50,8 @@ angular.module('OWMApp',['ngRoute']).
 			$location.path('/error');
 		})
 	}).
-	controller('HomeCtrl',function($scope){
-
+	controller('HomeCtrl',function($scope,cities){
+		$scope.cities = cities;
 	}).
 	controller('CityCtrl',function($scope,city){
 		$scope.city = city;

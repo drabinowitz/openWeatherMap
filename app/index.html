@@ -6,12 +6,12 @@
 </head>
 <body>
 
-	<a href="#/cities/New%20York">New York</a>
-	<a href="#/cities/Dallas">Dallas</a>
-	<a href="#/cities/Chicago">Chicago</a>
-	<div ng-view></div>
+	<div ng-controller="HomeCtrl">
+		<a ng-repeat="city in cities" ui-sref="cities.city({ cityName : city.name })">{{ city.name }}</a>
+	</div>
+	<div ui-view></div>
 	<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
-	<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script type="text/javascript" src="./owm-app.js"></script>
 </body>
 </html>
