@@ -1,4 +1,4 @@
-angular.module('OWMApp',['ui.router']).
+angular.module('OWMApp',['ui.router', 'ngAnimate']).
 	value('cities',
 		[{name : 'New York'},{name : 'Dallas'},{name : 'Chicago'}]).
 	config(function($stateProvider,$urlRouterProvider){
@@ -45,14 +45,38 @@ angular.module('OWMApp',['ui.router']).
 			template : '<p>Error Page Not Found</p>'
 		});
 	}).
-	run(function($rootScope,$location){
-		$rootScope.$on('$routeChangeError',function(){
+	run(function($rootScope,$location,$timeout){
+		
+		$rootScope.$on('$stateChangeError',function(){
+			
 			$location.path('/error');
-		})
+		
+		});
+
+		$rootScope.$on('$stateChangeStart',function(){
+
+			// $rootScope.isLoading = true;
+		
+		});
+
+		$rootScope.$on('$stateChangeSuccess',function(){
+
+			$timeout(function(){
+
+				$rootScope.isLoading = false;
+
+			},1000);
+
+		});
+
 	}).
 	controller('HomeCtrl',function($scope,cities){
+		
 		$scope.cities = cities;
+	
 	}).
 	controller('CityCtrl',function($scope,city){
+		
 		$scope.city = city;
+	
 	});
